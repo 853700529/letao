@@ -32,14 +32,25 @@
             type:"GET",
             url:"/employee/employeeLogout",
             success:function(info){
+                // console.log(info);
                 if(info.success){
                     location.href="login.html";
-                }
-                if(info.error==400){
-                    alert(info.message);
                 }
             }
         })
     });
+    // 发送Ajax ，判断管理员是否已经登陆，先判断当前页面是否为登录页
+    if(location.href.indexOf("login.html") == -1){
+        $.ajax({
+            type:"GET",
+            url:"/employee/checkRootLogin",
+            success:function(info){
+                // console.log(info);
+                if(info.error===400){
+                    location.href="login.html";
+                }
+            }
+        })
+    }
 
 });
